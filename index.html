@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>해외 택배 출고 대행 · 안내</title>
+  <style>
+    :root{
+      --bg: #f7f8ff;
+      --bg2:#f1fbff;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#6d5efc;
+      --accent2:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 25px rgba(17,24,39,.08);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple SD Gothic Neo";
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 0%, rgba(109,94,252,.18), transparent 60%),
+        radial-gradient(800px 500px at 95% 10%, rgba(34,197,94,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+    }
+    .wrap{max-width:1040px; margin:0 auto; padding:22px 16px 70px}
+    header{
+      background:rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px 16px;
+    }
+    .toprow{display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    .brand{display:flex; flex-direction:column; gap:6px}
+    .brand h1{margin:0; font-size:18px; letter-spacing:.2px}
+    .brand p{margin:0; color:var(--muted); font-size:13px; line-height:1.4}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:8px 10px; border-radius:999px;
+      font-size:12px; color:var(--muted);
+      box-shadow: 0 6px 18px rgba(17,24,39,.06);
+    }
+    .pill b{color:var(--text)}
+    .tabs{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
+    .tabbtn{
+      cursor:pointer; user-select:none;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      padding:10px 12px; border-radius:999px;
+      font-weight:800; font-size:13px;
+      transition: transform .05s ease, background .2s ease, border-color .2s ease;
+    }
+    .tabbtn:hover{transform: translateY(-1px)}
+    .tabbtn.active{background:rgba(109,94,252,.12); border-color:rgba(109,94,252,.38)}
+    .subtabs{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
+    .subbtn{
+      cursor:pointer; user-select:none;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      padding:9px 12px; border-radius:12px;
+      font-weight:800; font-size:13px;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .subbtn.active{background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.35)}
+    .grid{display:grid; grid-template-columns: 1fr; gap:14px; margin-top:16px}
+    @media (min-width: 920px){
+      .grid{grid-template-columns: 1.2fr .8fr}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    .card h2{margin:0 0 8px; font-size:14px}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.62}
+    .kvs{display:grid; grid-template-columns: 1fr; gap:10px; margin-top:10px}
+    .kv{
+      border:1px dashed rgba(17,24,39,.18);
+      background: linear-gradient(180deg, rgba(109,94,252,.06), rgba(34,197,94,.04));
+      border-radius:12px; padding:10px 10px;
+    }
+    .kv b{display:block; font-size:12px; color:var(--text); margin-bottom:4px}
+    .kv span{font-size:12px; color:var(--muted); line-height:1.45}
+    details{
+      border:1px solid var(--line);
+      background: #fff;
+      border-radius: 14px;
+      padding:10px 12px;
+      margin-top:10px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
+      color:var(--text);
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{opacity:.6}
+    details[open] .chev{transform: rotate(180deg)}
+    .list{margin:10px 0 0; padding:0 0 0 18px; color:var(--muted); font-size:13px; line-height:1.65}
+    .list li{margin:6px 0}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(109,94,252,.07);
+      padding:8px 10px; border-radius:12px;
+      font-size:12px; color:var(--muted);
+    }
+    .badge strong{color:var(--text)}
+    .ok{background: rgba(34,197,94,.10)}
+    .warn{background: rgba(245,158,11,.12)}
+    .danger{background: rgba(239,68,68,.10)}
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .copybtn{
+      cursor:pointer;
+      border:1px solid rgba(109,94,252,.45);
+      background: rgba(109,94,252,.10);
+      color:var(--text);
+      padding:10px 12px; border-radius:12px;
+      font-weight:900; font-size:13px;
+    }
+    .copybtn:active{transform: translateY(1px)}
+    textarea{
+      width:100%; min-height:160px; resize:vertical;
+      background: #fbfbff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 12px;
+      color:var(--text);
+      font-size:12px; line-height:1.55;
+    }
+    .mini{
+      font-size:12px; color:var(--muted); line-height:1.6;
+      border-top:1px solid var(--line); padding-top:12px; margin-top:12px;
+    }
+    .footnote{margin-top:14px; font-size:12px; color:var(--muted); line-height:1.6}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="toprow">
+        <div class="brand">
+          <h1>해외 택배 출고 대행 · 안내</h1>
+          <p>가격은 링크로 안내 · 견적은 DM으로 진행 · 규칙은 단순하게!</p>
+        </div>
+        <div class="pill"><b>DM으로 견적</b> · 영업일 기준 24시간 내 답변</div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Language tabs">
+        <button class="tabbtn active" data-lang="ko" role="tab" aria-selected="true">한국어</button>
+        <button class="tabbtn" data-lang="en" role="tab" aria-selected="false">English</button>
+        <button class="tabbtn" data-lang="ja" role="tab" aria-selected="false">日本語</button>
+      </div>
+
+      <div class="subtabs" role="tablist" aria-label="Service tabs">
+        <button class="subbtn active" data-service="ship" role="tab" aria-selected="true">출고대행(보관+발송)</button>
+        <button class="subbtn" data-service="order" role="tab" aria-selected="false">대행주문(구매대행)</button>
+      </div>
+    </header>
+
+    <!-- =========================
+         SERVICE: SHIPPING (KO/EN/JA)
+         ========================= -->
+    <section class="service ship">
+
+      <!-- KOREAN -->
+      <section class="lang ko" style="display:block">
+        <div class="grid">
+          <div class="card">
+            <h2>출고대행 서비스 방식</h2>
+            <p>
+              이 서비스는 <b>“박스 1개 = 출고 1건”</b> 기준입니다.
+              <b>합배송/분할출고는 불가</b>합니다.
+              30일 동안 패키지는 자유롭게 받을 수 있지만, 신청한 박스가 <b>안전 포장 기준으로 가득 차면</b>
+              30일이 남아도 <b>즉시 안내 후 출고 준비</b>에 들어갑니다.
+            </p>
+
+            <div class="kvs">
+              <div class="kv">
+                <b>이용 시작일(1일차)</b>
+                <span><b>첫 패키지 도착일</b>을 1일차로 계산합니다.</span>
+              </div>
+              <div class="kv">
+                <b>“박스가 찼다” 안전 포장 기준</b>
+                <span>완충재 포함 기준으로 <b>뚜껑이 무리 없이 닫히고</b>, 내용물이 <b>눌리거나 흔들려 파손 위험이 없는 상태</b>를 “가득 참”으로 봅니다. (무리한 압축 포장 요청 불가)</span>
+              </div>
+              <div class="kv">
+                <b>박스가 20일차에 다 찼다면?</b>
+                <span>그 박스는 즉시 출고로 진행되며, 더 받으시려면 <b>새 박스(새 월정액)</b>를 다시 신청하셔야 합니다.</span>
+              </div>
+            </div>
+
+            <details>
+              <summary>요금 안내 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>월 이용료(30일):</b> 3호 ₩17,000 / 4호 ₩22,000 / 5호 ₩28,000</li>
+                <li><b>국내 이동비(필수):</b> <b>패키지 1개당</b> ₩3,000</li>
+                <li><b>리패킹(필수, 박스값 포함):</b> 3호 ₩5,000 / 4호 ₩10,000 / 5호 ₩15,000</li>
+                <li><b>국제배송비:</b> EMS/EMS 프리미엄 <b>실비</b> (국가/무게에 따라 변동)</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>사진/검수 옵션 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>도착사진 무료:</b> 30일 동안 원하는 패키지 <b>외관 2컷(총 2장)</b></li>
+                <li><b>출고사진:</b> 1회 제공</li>
+                <li><b>모든 패키지 외관사진 옵션:</b> <b>패키지 도착할 때마다 외관 1장</b> (3호 ₩3,000 / 4호 ₩4,000 / 5호 ₩5,000)</li>
+                <li><b>개봉검수:</b> 제품 1개 확인(개봉)할 때마다 ₩1,000</li>
+              </ul>
+              <div class="footnote">
+                <span class="badge ok"><strong>TIP</strong> 사진은 요청이 많을수록 시간이 늘어납니다. 꼭 필요한 만큼만 추천드려요.</span>
+              </div>
+            </details>
+
+            <details>
+              <summary>마감/결제/연장 규정 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>D-2(종료 2일 전):</b> 리패킹 진행 + 최종 견적 안내</li>
+                <li><b>입금:</b> 견적서 발송 후 <b>24시간 내 입금 시 출고 진행</b></li>
+                <li><b>입금 지연으로 출고 지연 시:</b> <b>1일 3,000원</b>(최대 3일) → 이후 <b>1일 10,000원</b>(최대 10일, 초과 시 폐기)</li>
+                <li><b>주말/공휴일:</b> 우체국 휴무 시 다음 영업일에 접수/발송</li>
+              </ul>
+              <div class="footnote">
+                <span class="badge warn"><strong>중요</strong> 출고 기준일은 “우체국 접수일(영업일)”입니다.</span>
+              </div>
+            </details>
+
+            <details>
+              <summary>해외 결제 안내 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>해외 고객 결제는 <b>PayPal만</b> 받습니다.</li>
+                <li>안내 금액은 <b>원화(KRW) 기준</b>이며, PayPal/환전 수수료는 <b>신청자 부담</b>입니다.</li>
+                <li><b>수수료 미포함</b> 원화 금액을 보내주셔야 합니다.</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="card">
+            <h2>DM 템플릿 (복사해서 보내주세요)</h2>
+            <p class="muted">아래 템플릿으로 보내주시면 빠르게 안내드릴 수 있어요.</p>
+            <div class="btnrow">
+              <button class="copybtn" data-copy="dm_ko_ship">DM 텍스트 복사</button>
+              <span class="badge ok"><strong>빠른 견적</strong> · 국가/박스/방식/내용물</span>
+            </div>
+            <textarea id="dm_ko_ship" readonly>
+[출고대행 문의]
+국가:
+박스 크기: (3호 / 4호 / 5호)
+배송 방식: (EMS / EMS 프리미엄)
+내용물 종류(대략):
+개봉검수 필요: (예/아니오, 개수)
+모든 패키지 외관사진 옵션: (예/아니오)
+특이사항(깨짐주의/포장요청 등):
+            </textarea>
+            <div class="mini">
+              <b>안내:</b> 합배송/분할출고 불가 · 박스가 안전 기준으로 차면 즉시 출고됩니다.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENGLISH -->
+      <section class="lang en" style="display:none">
+        <div class="grid">
+          <div class="card">
+            <h2>Shipping Support (How it works)</h2>
+            <p>
+              This is a <b>box-based</b> service: <b>1 box = 1 dispatch</b>. No split shipments and no consolidation.
+              You can receive packages freely within 30 days, but once the selected box becomes full under safe packing standards,
+              we will notify you and prepare immediate dispatch (even before 30 days).
+            </p>
+
+            <div class="kvs">
+              <div class="kv">
+                <b>Start date (Day 1)</b>
+                <span>Day 1 starts from the date your <b>first package arrives</b>.</span>
+              </div>
+              <div class="kv">
+                <b>Safe “full” standard</b>
+                <span>With cushioning included, the box closes normally and items are not pressed or likely to be damaged. Compression requests are not accepted.</span>
+              </div>
+              <div class="kv">
+                <b>If the box becomes full early</b>
+                <span>We proceed with dispatch immediately. To continue receiving, you must start a <b>new box / new monthly plan</b>.</span>
+              </div>
+            </div>
+
+            <details>
+              <summary>Fees <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>Monthly plan (30 days):</b> Box #3 ₩17,000 / #4 ₩22,000 / #5 ₩28,000</li>
+                <li><b>Domestic handling (required):</b> ₩3,000 <b>per incoming package</b></li>
+                <li><b>Repacking (required, box included):</b> #3 ₩5,000 / #4 ₩10,000 / #5 ₩15,000</li>
+                <li><b>International postage:</b> EMS / EMS Premium at <b>actual cost</b></li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>Photos & inspection <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>Arrival photos (free):</b> 2 exterior shots total within 30 days</li>
+                <li><b>Dispatch photo:</b> 1 time</li>
+                <li><b>All-packages photo option:</b> 1 exterior photo for each arrival (Box #3 ₩3,000 / #4 ₩4,000 / #5 ₩5,000)</li>
+                <li><b>Inspection (opening/checking):</b> ₩1,000 per item</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>Payment & extension <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>D-2 repack & final quote</b> (2 days before end date)</li>
+                <li><b>Pay within 24 hours</b> after quote to proceed dispatch</li>
+                <li><b>Late payment delay:</b> ₩3,000/day up to 3 days → then ₩10,000/day up to 10 days (beyond that: disposal)</li>
+                <li><b>Weekends/holidays:</b> ship on next business day</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>Overseas payment <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>PayPal only.</li>
+                <li>We quote in KRW. Customer covers PayPal/FX fees.</li>
+                <li>Please send the KRW amount <b>excluding fees</b>.</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="card">
+            <h2>DM template (copy & send)</h2>
+            <div class="btnrow">
+              <button class="copybtn" data-copy="dm_en_ship">Copy DM text</button>
+              <span class="badge ok"><strong>Tip</strong> Country + box size = faster</span>
+            </div>
+            <textarea id="dm_en_ship" readonly>
+[Shipping Support]
+Country:
+Box size: (#3 / #4 / #5)
+Shipping: (EMS or EMS Premium)
+Item category:
+Need inspection? (Yes/No, how many items)
+All-packages photo option? (Yes/No)
+Notes (fragile / special requests):
+            </textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- JAPANESE -->
+      <section class="lang ja" style="display:none">
+        <div class="grid">
+          <div class="card">
+            <h2>出荷代行（サービス概要）</h2>
+            <p>
+              本サービスは<b>箱単位</b>です：<b>箱1つ＝出荷1回</b>。
+              <b>分割出荷・合算出荷は不可</b>です。
+              30日間は自由に受け取りできますが、箱が安全基準でいっぱいになったら、30日未満でもすぐ出荷準備に入ります。
+              継続する場合は<b>新しい箱（新しい月額）</b>が必要です。
+            </p>
+
+            <div class="kvs">
+              <div class="kv">
+                <b>開始日</b>
+                <span><b>最初の荷物の到着日</b>を1日目とします。</span>
+              </div>
+              <div class="kv">
+                <b>「いっぱい」の安全基準</b>
+                <span>緩衝材込みで箱が無理なく閉まり、中身が押されず破損リスクがない状態。圧縮梱包は不可。</span>
+              </div>
+              <div class="kv">
+                <b>早めにいっぱいになった場合</b>
+                <span>即出荷します。続けて受け取るには<b>新しい箱/新しい月額</b>が必要です。</span>
+              </div>
+            </div>
+
+            <details>
+              <summary>料金 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>月額（30日）:</b> 3号 ₩17,000 / 4号 ₩22,000 / 5号 ₩28,000</li>
+                <li><b>国内対応費（必須）:</b> 荷物1個につき ₩3,000</li>
+                <li><b>リパッキング（必須・箱代込み）:</b> 3号 ₩5,000 / 4号 ₩10,000 / 5号 ₩15,000</li>
+                <li><b>国際送料:</b> EMS / EMSプレミアム 実費</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>写真・検品 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>到着写真（無料）:</b> 30日内 外観2枚（合計2カット）</li>
+                <li><b>出荷写真:</b> 1回</li>
+                <li><b>全パッケージ外観写真オプション:</b> 到着ごと外観1枚（3号 ₩3,000 / 4号 ₩4,000 / 5号 ₩5,000）</li>
+                <li><b>開封確認（検品）:</b> 1点につき ₩1,000</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>支払い・延長 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>D-2:</b> リパッキング＋最終見積</li>
+                <li><b>24時間以内入金</b>で出荷進行</li>
+                <li><b>入金遅れ:</b> ₩3,000/日（最大3日）→ ₩10,000/日（最大10日、超過は処分）</li>
+                <li><b>土日祝:</b> 次の営業日に発送</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>海外決済 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>PayPalのみ。</li>
+                <li>KRWで案内。PayPal/為替手数料はお客様負担。</li>
+                <li>手数料を除いたKRW金額をお支払いください。</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="card">
+            <h2>DMテンプレ（コピーして送信）</h2>
+            <div class="btnrow">
+              <button class="copybtn" data-copy="dm_ja_ship">DM文をコピー</button>
+              <span class="badge ok"><strong>コツ</strong> 国＋箱で早い</span>
+            </div>
+            <textarea id="dm_ja_ship" readonly>
+[出荷代行]
+お届け先の国:
+箱サイズ:（3号 / 4号 / 5号）
+発送方法:（EMS / EMSプレミアム）
+内容カテゴリ:
+検品（開封）:（必要/不要・点数）
+全パッケージ外観写真:（必要/不要）
+備考:
+            </textarea>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- =========================
+         SERVICE: ORDER (KO/EN/JA)
+         ========================= -->
+    <section class="service order" style="display:none">
+
+      <!-- KO -->
+      <section class="lang ko" style="display:block">
+        <div class="grid">
+          <div class="card">
+            <h2>대행주문(구매대행) 안내</h2>
+            <p>
+              한국 사이트에서 구매가 어려우신 분들을 위해 제가 <b>직접 주문</b>을 도와드립니다.
+              원하시는 <b>사이트 링크 + 상품 목록</b>을 DM으로 보내주세요.
+            </p>
+
+            <details>
+              <summary>대행주문 플랜 가격 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>대행주문 플랜:</b> ₩40,000 (선불)</li>
+                <li>제가 주문을 진행하는 서비스이므로 <b>무조건 선불</b>입니다.</li>
+                <li>주문 후 물품이 도착하여 박스가 안전 기준으로 가득 차면, 해당 출고건은 종료되며 <b>이후는 새 출고건(새 월정액)으로 초기화</b>됩니다.</li>
+                <li><b>기타 비용(리패킹/사진/검수/국제배송/연장 등)은 기존 출고대행과 동일 규정</b>으로 적용됩니다.</li>
+              </ul>
+              <div class="footnote">
+                <span class="badge warn"><strong>주의</strong> 대행주문 플랜도 출고는 “박스 1개 = 출고 1건” 기준입니다.</span>
+              </div>
+            </details>
+
+            <details>
+              <summary>기존 플랜 이용자가 대행주문 추가 시 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>이미 출고대행 플랜(월 이용료)을 이용 중인 분이 대행주문을 추가로 맡기시면</li>
+                <li><b>주문 1건당 수수료 ₩2,000</b>로 진행 가능합니다. (선불)</li>
+                <li>그 외 리패킹/국내이동비/사진/검수/국제배송비 등은 동일 규정 적용</li>
+              </ul>
+              <div class="footnote">
+                <span class="badge ok"><strong>TIP</strong> 상품 링크를 미리 정리해서 보내주시면 더 빠릅니다.</span>
+              </div>
+            </details>
+
+            <details>
+              <summary>중고 사이트(번개/중고나라 등) 안내 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>중고 거래 특성상 <b>사기(허위매물/먹튀/미발송 등) 위험</b>이 존재합니다.</li>
+                <li>중고 거래에서 발생할 수 있는 <b>사기/분쟁 책임은 신청자 본인</b>에게 있습니다.</li>
+                <li>원하시면 “판매자 신뢰도 체크용”으로 확인해드릴 수는 있으나, <b>사기 방지 100% 보장</b>은 불가합니다.</li>
+              </ul>
+              <div class="footnote">
+                <span class="badge danger"><strong>필독</strong> 중고는 리스크 동의 후 진행됩니다.</span>
+              </div>
+            </details>
+          </div>
+
+          <div class="card">
+            <h2>대행주문 DM 템플릿</h2>
+            <div class="btnrow">
+              <button class="copybtn" data-copy="dm_ko_order">DM 텍스트 복사</button>
+              <span class="badge ok"><strong>필수</strong> 사이트+상품목록</span>
+            </div>
+            <textarea id="dm_ko_order" readonly>
+[대행주문(구매대행) 문의]
+구매할 사이트 링크:
+상품 목록(상품명/링크/옵션/수량):
+예산 상한(있다면):
+배송지(한국 내 수령 주소/대행지):
+결제 방식: (PayPal/기타)
+중고 사이트 여부: (예/아니오)
+기타 요청사항:
+            </textarea>
+            <div class="mini">
+              <b>선불 안내:</b> 대행주문은 선불 결제 후 진행됩니다. 중고 거래 사기/분쟁 책임은 신청자 본인에게 있습니다.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EN -->
+      <section class="lang en" style="display:none">
+        <div class="grid">
+          <div class="card">
+            <h2>Order Proxy (We buy in Korea for you)</h2>
+            <p>
+              If you want items from Korean websites, send the <b>site link + product list</b> by DM.
+              This is a <b>prepaid</b> service because we place orders on your behalf.
+            </p>
+
+            <details>
+              <summary>Pricing <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>Order Proxy Plan:</b> ₩40,000 (prepaid)</li>
+                <li>Once items arrive and your box becomes full under safe standards, the dispatch is closed and you must start a new box/new plan to continue.</li>
+                <li>All other fees (repacking/photos/inspection/postage/extensions) follow the same rules as the Shipping Support plan.</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>If you already have a Shipping Plan <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>If you are already using another plan and want us to place orders too:</li>
+                <li><b>₩2,000 per order</b> (prepaid)</li>
+                <li>Other fees follow the same rules.</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>Secondhand marketplaces disclaimer <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>Secondhand transactions may involve scams/fraud.</li>
+                <li><b>Fraud risk and disputes are the applicant’s responsibility.</b></li>
+                <li>We can help check basic seller signals, but cannot guarantee safety.</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="card">
+            <h2>DM template (Order Proxy)</h2>
+            <div class="btnrow">
+              <button class="copybtn" data-copy="dm_en_order">Copy DM text</button>
+            </div>
+            <textarea id="dm_en_order" readonly>
+[Order Proxy]
+Website link:
+Product list (name/link/options/qty):
+Budget cap (if any):
+Delivery info (Korea receiving / forwarding address):
+Payment method:
+Secondhand marketplace? (Yes/No)
+Notes:
+            </textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- JA -->
+      <section class="lang ja" style="display:none">
+        <div class="grid">
+          <div class="card">
+            <h2>代理注文（韓国サイト購入代行）</h2>
+            <p>
+              韓国サイトでの購入をご希望の方は、<b>サイトURL＋商品リスト</b>をDMで送ってください。
+              こちらは<b>先払い</b>で進行します（当方が直接注文するため）。
+            </p>
+
+            <details>
+              <summary>料金 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li><b>代理注文プラン:</b> ₩40,000（先払い）</li>
+                <li>商品到着後、箱が安全基準でいっぱいになったら出荷し、継続する場合は新しい箱/新しい月額が必要です。</li>
+                <li>その他の費用は出荷代行と同じルール（リパッキング/写真/検品/送料/延長など）です。</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>既存プラン利用中の追加注文 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>すでに別プラン利用中で代理注文も依頼したい場合：</li>
+                <li><b>注文1件につき ₩2,000</b>（先払い）</li>
+                <li>その他は同じルール適用</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary>中古サイトの注意 <span class="chev">▼</span></summary>
+              <ul class="list">
+                <li>中古取引は詐欺リスクがあります。</li>
+                <li><b>詐欺/トラブルの責任は申請者本人</b>となります。</li>
+                <li>基本チェックは可能ですが安全保証はできません。</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="card">
+            <h2>DMテンプレ（代理注文）</h2>
+            <div class="btnrow">
+              <button class="copybtn" data-copy="dm_ja_order">DM文をコピー</button>
+            </div>
+            <textarea id="dm_ja_order" readonly>
+[代理注文]
+サイトURL:
+商品リスト（名称/リンク/オプション/数量）:
+予算上限（あれば）:
+韓国内受取/転送先情報:
+支払い方法:
+中古サイト？（はい/いいえ）
+備考:
+            </textarea>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+    <div class="card" style="margin-top:14px">
+      <h2>링크 안내</h2>
+      <p class="muted">
+        언어 바로가기: <b>#ko</b> / <b>#en</b> / <b>#ja</b> &nbsp;·&nbsp;
+        서비스 바로가기: <b>#ship</b>(출고대행) / <b>#order</b>(대행주문)
+      </p>
+      <div class="footnote">
+        <span class="badge warn"><strong>주의</strong> 금지/제한 품목은 진행이 어려울 수 있어요. 내용물 종류를 꼭 알려주세요.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const langBtns = Array.from(document.querySelectorAll('.tabbtn'));
+    const subBtns = Array.from(document.querySelectorAll('.subbtn'));
+    const langSections = Array.from(document.querySelectorAll('.lang'));
+    const serviceSections = Array.from(document.querySelectorAll('.service'));
+
+    function setLang(lang){
+      // Show selected language within currently visible service section
+      langSections.forEach(s => {
+        s.style.display = s.classList.contains(lang) ? 'block' : 'none';
+      });
+      langBtns.forEach(b => {
+        const active = b.dataset.lang === lang;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      updateHash();
+    }
+
+    function setService(service){
+      serviceSections.forEach(s => s.style.display = s.classList.contains(service) ? 'block' : 'none');
+      subBtns.forEach(b => {
+        const active = b.dataset.service === service;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      // After service switch, keep current language visible
+      const currentLang = document.querySelector('.tabbtn.active')?.dataset.lang || 'ko';
+      // Hide all language sections first, then show only those that match within active service
+      langSections.forEach(s => s.style.display = 'none');
+      document.querySelectorAll(`.service.${service} .lang.${currentLang}`).forEach(s => s.style.display='block');
+
+      updateHash();
+    }
+
+    function updateHash(){
+      const lang = document.querySelector('.tabbtn.active')?.dataset.lang || 'ko';
+      const service = document.querySelector('.subbtn.active')?.dataset.service || 'ship';
+      history.replaceState(null, '', `#${lang}-${service}`);
+    }
+
+    // Tab click handlers
+    langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+    subBtns.forEach(b => b.addEventListener('click', () => setService(b.dataset.service)));
+
+    // Deep links:
+    // #ko  #en  #ja  OR  #ship  #order  OR  #ko-ship etc.
+    function applyHash(){
+      const raw = (location.hash || '').replace('#','').trim();
+      if(!raw) return;
+
+      let lang = null, service = null;
+
+      // combined: ko-ship
+      if(raw.includes('-')){
+        const parts = raw.split('-');
+        if(parts.length >= 2){
+          lang = parts[0];
+          service = parts[1];
+        }
+      }else{
+        if(['ko','en','ja'].includes(raw)) lang = raw;
+        if(['ship','order'].includes(raw)) service = raw;
+      }
+
+      if(service) setService(service);
+      if(lang){
+        // Ensure language is set within active service
+        setLang(lang);
+        const activeService = document.querySelector('.subbtn.active')?.dataset.service || 'ship';
+        langSections.forEach(s => s.style.display='none');
+        document.querySelectorAll(`.service.${activeService} .lang.${lang}`).forEach(s => s.style.display='block');
+      }
+    }
+    applyHash();
+
+    // Copy buttons
+    document.querySelectorAll('.copybtn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.copy;
+        const el = document.getElementById(id);
+        const txt = (el?.value || '').trim();
+        if(!txt) return;
+
+        const original = btn.textContent;
+        try{
+          await navigator.clipboard.writeText(txt);
+          btn.textContent = '복사됨!';
+          setTimeout(()=> btn.textContent = original, 1200);
+        }catch(e){
+          el.select();
+          document.execCommand('copy');
+          btn.textContent = '복사됨!';
+          setTimeout(()=> btn.textContent = original, 1200);
+        }
+      });
+    });
+
+    // Ensure initial service respects active lang display
+    const initLang = document.querySelector('.tabbtn.active')?.dataset.lang || 'ko';
+    const initService = document.querySelector('.subbtn.active')?.dataset.service || 'ship';
+    langSections.forEach(s => s.style.display = 'none');
+    document.querySelectorAll(`.service.${initService} .lang.${initLang}`).forEach(s => s.style.display='block');
+  </script>
+</body>
+</html>
